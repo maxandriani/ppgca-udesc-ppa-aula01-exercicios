@@ -1,0 +1,10 @@
+{
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/Users/maxandriani/Projects/ppgca-udesc-ppa-aula01-exericios",
+            "binaryPath": "/Users/maxandriani/Projects/ppgca-udesc-ppa-aula01-exericios/main",
+            "binaryArgs": ["4"]
+        }
+    ]
+}
