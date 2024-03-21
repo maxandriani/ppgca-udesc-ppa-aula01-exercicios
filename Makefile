@@ -1,5 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -g -pg 
+LDFLAGS = -g -pg 
 SRCDIR = ./src
 BINDIR = ./bin
 TARGETS = main
@@ -11,6 +12,16 @@ OBJECTS := $(patsubst $(SRCDIR)/%.c, $(BINDIR)/%.o, $(filter-out $(SRCDIR)/main.
 
 # Main target
 all: $(BINDIR) | $(OBJECTS) $(BINDIR)/main
+ofast: CFLAGS += -Ofast
+ofast: all
+o0: CFLAGS += -O0
+o0: all
+o1: CFLAGS += -O1
+o1: all
+o2: CFLAGS += -O2
+o2: all
+o3: CFLAGS += -O3
+o3: all
 
 # Geenrate bin dir
 $(BINDIR):
