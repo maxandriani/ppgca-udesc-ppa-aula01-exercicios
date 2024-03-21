@@ -31,8 +31,6 @@ int main(int argc, char **argv)
     printf("Matriz B\n");
     matriz_imprimir(B);
 
-    return 0;
-
     C = matriz_somar(A, B);
     
     printf("Matriz C\n");
