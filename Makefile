@@ -1,22 +1,31 @@
-# GNU Makefile
+CC = gcc
+CFLAGS = -Wall -g -pg 
+SRCDIR = ./src
+BINDIR = ./bin
+TARGETS = main
 
-CC = gcc 
-CCFLAGS = -g -Wall
-LDFLAGS = -g
-TARGET = main
+# Find all C cources
+SOURCES := $(wildcard $(SRCDIR)/*.c)
+# Generate temporary files on bin
+OBJECTS := $(patsubst $(SRCDIR)/%.c, $(BINDIR)/%.o, $(filter-out $(SRCDIR)/main.c, $(SOURCES)))
 
-%.o: %.c
-	$(CC) $(CCFLAGS) -c $<
+# Main target
+all: $(BINDIR) | $(OBJECTS) $(BINDIR)/main
 
-%: %.o
-	$(CC) $(LDFLAGS) $^ -o $@ 
+# Geenrate bin dir
+$(BINDIR):
+	mkdir $(BINDIR)
 
-all: $(TARGET)
+# Compile each .c source file into object folder bindir/.o
+$(BINDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BINDIR)/main: $(SRCDIR)/main.c $(OBJECTS)
+	$(CC) $(CFLAGS) $^ -o $@
 
 # Dependencias
-
-main: matriz.o main.c
-matriz.o: matriz.c matriz.h
+$(SRCDIR)/main.c: $(BINDIR)/matriz.o
+$(BINDIR)/matriz.o: $(SRCDIR)/matriz.c $(SRCDIR)/matriz.h
 
 clean:
-	rm -rf *.o *~ $(TARGET) main.dSYM*
+	rm -rf *.o *~ $(TARGET) main.dSYM* bin
